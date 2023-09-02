@@ -1,5 +1,5 @@
 import Dataclass from "./main";
-import { get_current_active_class_file, get_current_active_file } from "./utils/utils";
+import { get_current_active_class_file, get_current_active_file, is_class_file } from "./utils/utils";
 import { FieldRenameController } from "./controllers/field_rename";
 import { FormatNoteController } from "./controllers/format_note";
 import { ClassRenameController } from "./controllers/class_rename";
@@ -55,7 +55,7 @@ export class CommandManager {
             name: "Apply the class to the current file",
             checkCallback: (checking: boolean) => {
                 const current_file = get_current_active_file(this.plugin);
-                if (current_file !== undefined) {
+                if (current_file !== undefined && !is_class_file(current_file, this.plugin.settings)) {
                     if (!checking) {
                         FormatNoteController.format_note(current_file, this.plugin);
                     }
@@ -75,7 +75,7 @@ export class CommandManager {
         const save_callback = saveCommandDefinition?.callback;
         if (typeof save_callback === "function") {
             saveCommandDefinition.callback = () => {
-                if (this.plugin.settings.format_on_save) {
+                if (this.plugin.is_loaded && this.plugin.settings.format_on_save) {
                     // save_callback calls an async function to save. This means we can encounter a race condition
                     // by trying to read the file right after the call. We also cannot implement our own save method
                     // because other plugins may already have hooked into the event. So we rely on the event

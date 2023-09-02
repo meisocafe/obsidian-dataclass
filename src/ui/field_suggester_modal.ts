@@ -8,7 +8,7 @@ export class FieldSuggesterModal extends FuzzySuggestModal<[string, string]> {
 
     constructor(class_file: TFile, plugin: Dataclass) {
         super(plugin.app);
-        this.setPlaceholder("Choose Field...");
+        this.setPlaceholder("Choose field...");
 
         get_frontmatter_fields(class_file, plugin).then((fields: Fields) => {
             this.fields = [...fields.entries()];

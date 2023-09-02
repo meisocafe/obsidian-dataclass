@@ -1,4 +1,4 @@
-import { PluginSettingTab, Setting, ToggleComponent, App } from "obsidian";
+import { PluginSettingTab, Setting, ToggleComponent, App, normalizePath } from "obsidian";
 import Dataclass from "src/main";
 import { SortClassfields, SortExtraFields, RenameConflictResolution } from "src/settings/settings";
 import { FolderSuggest } from "src/settings/suggesters/FolderSuggester";
@@ -16,10 +16,8 @@ export class DataclassSettingTab extends PluginSettingTab {
 
         containerEl.empty();
 
-        containerEl.createEl("h2", { text: "General Settings" });
-
         new Setting(containerEl)
-            .setName("Apply class on Save")
+            .setName("Apply class on save")
             .setDesc("Apply the class to the current file automatically each time you save it.")
             .addToggle((toggle: ToggleComponent) => {
                 toggle.setValue(this.plugin.settings.format_on_save);
@@ -36,8 +34,8 @@ export class DataclassSettingTab extends PluginSettingTab {
                 new FolderSuggest(cb.inputEl, this.plugin);
                 cb.setPlaceholder("Example: __config/dataclass/z")
                     .setValue(this.plugin.settings.classfiles_folder)
-                    .onChange((new_folder) => {
-                        this.plugin.settings.classfiles_folder = new_folder;
+                    .onChange((new_path) => {
+                        this.plugin.settings.classfiles_folder = normalizePath(new_path);
                         this.plugin.saveSettings();
                     });
                 // @ts-ignore
@@ -45,7 +43,7 @@ export class DataclassSettingTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
-            .setName("Classs Property Name")
+            .setName("Classs property name")
             .setDesc("Property in frontmatter to determine the class of the note")
             .addText((text) =>
                 text
@@ -58,7 +56,7 @@ export class DataclassSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName("Folder Property Name")
+            .setName("Folder property name")
             .setDesc(
                 "Property in frontmatter to determine the where the note should be moved. Leave it blank to disable this feature.",
             )
@@ -161,7 +159,7 @@ export class DataclassSettingTab extends PluginSettingTab {
 
         containerEl.createEl("br", {});
 
-        containerEl.createEl("h2", { text: "Note Contents" });
+        containerEl.createEl("h2", { text: "Note contents" });
 
         if (this.plugin.settings.sort_fields) {
             new Setting(containerEl)

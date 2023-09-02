@@ -11,6 +11,7 @@ export default class Dataclass extends Plugin {
     public command_manager: CommandManager;
     public file_manually_saved_cache = new Set();
     public app: App;
+    public is_loaded: boolean;
 
     constructor(app: ObsidianApp, manifest: PluginManifest) {
         super(app, manifest);
@@ -27,9 +28,13 @@ export default class Dataclass extends Plugin {
         this.command_manager.register_onload();
 
         this.addSettingTab(new DataclassSettingTab(this.app, this));
+
+        this.is_loaded = true;
     }
 
-    onunload() {}
+    onunload() {
+        this.is_loaded = false;
+    }
 
     async loadSettings() {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
