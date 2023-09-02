@@ -1,0 +1,11 @@
+{
+	"id": "dataclass",
+	"name": "Dataclass",
+	"version": "0.9.0",
+	"minAppVersion": "0.15.0",
+	"description": "Keep your properties/frontmatter consistent between notes. Adds the concept of schemas/classes to obsidian.",
+	"author": "meisocafe",
+	"authorUrl": "https://meiso.cafe",
+	"fundingUrl": "https://ko-fi.com/meisocafe",
+	"isDesktopOnly": false
+}
