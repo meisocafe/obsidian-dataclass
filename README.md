@@ -8,8 +8,18 @@ For those users of [Obsidian.md](https://obsidian.md/) that use properties (fron
 -   Add new properties to all the notes pertaining to a class
 -   Keep properties sorted by different criteria
 -   Rename a property for all files of a class
+-   Automatically move files of a class to a specific directory
 -   Can be integrated [templater](https://github.com/SilentVoid13/Templater) or similar tools.
 -   All your important configuration/data is kept in your notes
+
+## Installation
+
+Because the plugin is waiting to be included into the community plugins, you need to install it manually:
+
+-   Go to the [latest release page](https://github.com/meisocafe/obsidian-dataclass/releases/tag/0.9.0).
+-   Go to your vault, inside `.obsidian/plugins` and create a folder named `obsidian-dataclass`
+-   Download `main.js`, `manifest.json` and `styles.css` and place them in the folder you created
+-   Restart or open Obsidian, you should see the Dataclass plugin in the installed plugins list.
 
 ## Usage
 
@@ -47,6 +57,13 @@ Open one of your class definitions, and [execute](https://help.obsidian.md/Plugi
 -   Dataclass: Rename current class file
 -   Dataclass: Update all files pertaining to the current class
 
+### Moving files of a class to a directory
+
+-   In the plugin's settings, set a _Folder property name_
+-   Create a property with that name in your class definition.
+-   In the property value, put the folder path where you want your files to be moved.
+-   Run the command _Dataclass: Update all files pertaining to the current class_
+
 ### When is a class definition applied to a Note?
 
 By default, only when executen a command that acts on the file. You can however enable _Apply class on Save_ in the settings so that it applies automatically each time you save the file. I recommend doing this after playing a little bit with the plugin.
@@ -63,6 +80,14 @@ This is a broad overview of features that are planned for this plugin, in no par
 ## Alternatives
 
 -   https://github.com/mdelobelle/metadatamenu
+
+## Thanks
+
+Thank you to the following projects to inspire the creation of this plugin and make obsidian even more awesome:
+
+-   https://github.com/blacksmithgu/obsidian-dataview
+-   https://github.com/SilentVoid13/Templater
+-   https://github.com/platers/obsidian-linter
 
 ## Contributing
 
